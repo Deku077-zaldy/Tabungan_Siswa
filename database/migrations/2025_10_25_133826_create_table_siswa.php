@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('wali_kelas_id')->constrained('wali_kelas');
             $table->string('no_hp', 20)->nullable();
             $table->string('nama', 100);
-            $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');
+            $table->enum('status', ['aktif', 'non-aktif'])->default('aktif');   
             $table->timestamps();
         });
     }

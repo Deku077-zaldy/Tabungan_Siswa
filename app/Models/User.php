@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Siswa;
 use App\Models\WaliKelas;
 use Illuminate\Notifications\Notifiable;
@@ -18,6 +17,27 @@ class User extends Authenticatable
         'password',
         'role',
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    // === Tambahkan ini untuk memastikan Auth pakai kolom username ===
+    public function getAuthIdentifierName()
+    {
+        return 'username';
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->username;
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
 
     public function siswa()
     {

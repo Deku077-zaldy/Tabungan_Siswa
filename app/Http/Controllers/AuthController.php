@@ -2,17 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function index()
-    {
-        // Logic & Database
-        $data = Siswa::all();
 
-        // Return View (HTML/Blade)
-        return view('welcome', compact('data'));
+    public function showLoginForm()
+    {
+        if (Auth::check()) {
+            return redirect()->route('dashboard.index');
+        }
+        return view('auth.login');
+    }
+
+
+    public function login(Request $request)
+    {
+        // Validasi
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        // Attempt login
+        $credentials = [
+            'username' => $request->input('username'),
+            'password' => $request->input('password'),
+        ];
+
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            // dd('LOGIN BERHASIL', Auth::user());
+            return redirect()->route('dashboard.index')->with('success', 'Login berhasil!');
+        }
+
+        return back()->with('error', 'Username atau password salah.')->withInput();
+    }
+
+    // Logout
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login')->with('status', 'Berhasil logout');
     }
 }
