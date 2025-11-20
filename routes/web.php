@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     // Root diarahkan ke dashboard
     Route::redirect('/', '/dashboard');
 });

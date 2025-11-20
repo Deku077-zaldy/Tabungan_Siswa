@@ -41,6 +41,12 @@ class AuthController extends Controller
         return back()->with('error', 'Username atau password salah.')->withInput();
     }
 
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('profile', compact('user'));
+    }
+
     // Logout
     public function logout(Request $request)
     {
