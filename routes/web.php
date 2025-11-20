@@ -1,10 +1,11 @@
 <?php
 
+use Pest\Support\View;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SiswaController;
-use Pest\Support\View;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TransaksiController;
 
 // Halaman login (hanya untuk tamu/guest)
 Route::middleware('guest')->group(function () {
@@ -18,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+    Route::get('/menabung', [TransaksiController::class, 'menabung'])->name('menabung');
     // Root diarahkan ke dashboard
     Route::redirect('/', '/dashboard');
 });
