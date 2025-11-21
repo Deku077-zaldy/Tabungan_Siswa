@@ -20,6 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     Route::get('/menabung', [TransaksiController::class, 'menabung'])->name('menabung');
+    Route::get('/tarik-tabungan', [TransaksiController::class, 'tarikTabungan'])->name('tarik-tabungan');
+    
     // Root diarahkan ke dashboard
     Route::redirect('/', '/dashboard');
 });

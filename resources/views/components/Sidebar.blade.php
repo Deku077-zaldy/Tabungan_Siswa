@@ -145,7 +145,7 @@
 
                     {{-- Tarik Uang --}}
                     <li>
-                        <a href="#" class="menu-item group menu-item-inactive">
+                        <a href="{{ route('tarik-tabungan') }}" class="menu-item group {{ Request::is('tarik-tabungan*') ? 'menu-item-active' : 'menu-item-inactive' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round"
@@ -157,7 +157,7 @@
                                 <path d="M6 12h.01" />
                                 <circle cx="12" cy="12" r="2" />
                             </svg>
-                            <span class="menu-item-text">Tarik Uang</span>
+                            <span class="menu-item-text">Tarik Tabungan</span>
                         </a>
                     </li>
 
