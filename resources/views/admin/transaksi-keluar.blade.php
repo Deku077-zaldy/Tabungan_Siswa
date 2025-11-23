@@ -1,4 +1,4 @@
-<x-dashboard-layout :title="'Profil Pengguna'">
+<x-dashboard-layout :title="'Tarik Tabungan'">
 
     <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Tarik Tabungan</h1>
     <div
@@ -100,7 +100,8 @@
                             class="inline-block rounded-lg bg-blue-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                             Menabung
                         </a>
-                        <a class="inline-block rounded-lg bg-blue-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" href="">History</a>
+                        <a class="inline-block rounded-lg bg-blue-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                            href="">History</a>
                     </div>
                 </td>
             </tr>

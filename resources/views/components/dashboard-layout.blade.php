@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="//unpkg.com/alpinejs" defer></script>
     <title>
-        Dashboard
+        {{ $title }}
     </title>
 </head>
 
@@ -32,7 +32,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
             <!-- ===== Main Content Start ===== -->
             <main>
                 <div class="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
-                     {{ $slot }}
+                    {{ $slot }}
                 </div>
             </main>
             <!-- ===== Main Content End ===== -->

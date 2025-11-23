@@ -59,7 +59,7 @@
 
                     {{-- History --}}
                     <li>
-                        <a href="#" class="menu-item group menu-item-inactive">
+                        <a href="{{ route('transaksi.history') }}" class="menu-item group {{ Request::is('transaksi-history*') ? 'menu-item-active' : 'menu-item-inactive' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-history-icon lucide-history">
@@ -73,7 +73,7 @@
 
                     {{-- Laporan --}}
                     <li>
-                        <a href="#" class="menu-item group menu-item-inactive">
+                        <a href="{{ route('transaksi.report') }}" class="menu-item group {{ Request::is('transaksi-report*') ? 'menu-item-active' : 'menu-item-inactive' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-notepad-text-icon lucide-notepad-text">
@@ -91,21 +91,22 @@
 
                 </ul>
             @elseif(Auth::user()->role === 'wali_kelas')
-                <li>
-                    <a href="{{ route('dashboard.index') }}"
-                        class="menu-item group {{ Request::is('dashboard*') ? 'menu-item-active' : 'menu-item-inactive' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="lucide lucide-layout-dashboard-icon lucide-layout-dashboard">
-                            <rect width="7" height="9" x="3" y="3" rx="1" />
-                            <rect width="7" height="5" x="14" y="3" rx="1" />
-                            <rect width="7" height="9" x="14" y="12" rx="1" />
-                            <rect width="7" height="5" x="3" y="16" rx="1" />
-                        </svg>
-                        <span class="menu-item-text">Dashboard</span>
-                    </a>
-                </li>
                 <ul class="flex flex-col gap-4 mb-6">
+                    <li>
+                        <a href="{{ route('dashboard.index') }}"
+                            class="menu-item group {{ Request::is('dashboard*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-layout-dashboard-icon lucide-layout-dashboard">
+                                <rect width="7" height="9" x="3" y="3" rx="1" />
+                                <rect width="7" height="5" x="14" y="3" rx="1" />
+                                <rect width="7" height="9" x="14" y="12" rx="1" />
+                                <rect width="7" height="5" x="3" y="16" rx="1" />
+                            </svg>
+                            <span class="menu-item-text">Dashboard</span>
+                        </a>
+                    </li>
 
                     {{-- Profile --}}
                     <li>
@@ -126,8 +127,8 @@
 
                     {{-- Menabung --}}
                     <li>
-                        <a href="{{ route('menabung') }}"
-                            class="menu-item group {{ Request::is('menabung*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                        <a href="{{ route('transaksi-masuk.index') }}"
+                            class="menu-item group {{ Request::is('transaksi-masuk*') ? 'menu-item-active' : 'menu-item-inactive' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round"
@@ -145,7 +146,8 @@
 
                     {{-- Tarik Uang --}}
                     <li>
-                        <a href="{{ route('tarik-tabungan') }}" class="menu-item group {{ Request::is('tarik-tabungan*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                        <a href="{{ route('transaksi-keluar.index') }}"
+                            class="menu-item group {{ Request::is('transaksi-keluar*') ? 'menu-item-active' : 'menu-item-inactive' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round"
@@ -161,9 +163,10 @@
                         </a>
                     </li>
 
-                    {{-- Buat Akun --}}
+                    {{-- Buat Akun Siswa --}}
                     <li>
-                        <a href="#" class="menu-item group menu-item-inactive">
+                        <a href="{{ route('user-siswa.index') }}"
+                            class="menu-item group {{ Request::is('user-siswa*') ? 'menu-item-active' : 'menu-item-inactive' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round"
@@ -173,7 +176,24 @@
                                 <path d="M19 16v6" />
                                 <path d="M22 19h-6" />
                             </svg>
-                            <span class="menu-item-text">Buat Akun</span>
+                            <span class="menu-item-text">Akun Siswa</span>
+                        </a>
+                    </li>
+
+                    {{-- Buat Akun Wali --}}
+                    <li>
+                        <a href="{{ route('user-wali.index') }}"
+                            class="menu-item group {{ Request::is('user-wali*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-user-round-plus-icon lucide-user-round-plus">
+                                <path d="M2 21a8 8 0 0 1 13.292-6" />
+                                <circle cx="10" cy="8" r="5" />
+                                <path d="M19 16v6" />
+                                <path d="M22 19h-6" />
+                            </svg>
+                            <span class="menu-item-text">Akun Wali</span>
                         </a>
                     </li>
 

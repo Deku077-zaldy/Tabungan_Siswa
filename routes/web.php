@@ -3,9 +3,10 @@
 use Pest\Support\View;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\SiswaController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\TransaksiMasukController;
+use App\Http\Controllers\TransaksiKeluarController;
+use App\Http\Controllers\UserSiswaController;
+use App\Http\Controllers\UserWaliKelasController;
 
 // Halaman login (hanya untuk tamu/guest)
 Route::middleware('guest')->group(function () {
@@ -15,13 +16,27 @@ Route::middleware('guest')->group(function () {
 
 // Area setelah login
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
-    Route::get('/menabung', [TransaksiController::class, 'menabung'])->name('menabung');
-    Route::get('/tarik-tabungan', [TransaksiController::class, 'tarikTabungan'])->name('tarik-tabungan');
-    
     // Root diarahkan ke dashboard
     Route::redirect('/', '/dashboard');
+    Route::get('/dashboard', [AuthController::class, 'index'])->name('dashboard.index');
+    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+
+    // Menajemen Akun Siswa
+    Route::get('/user-siswa', [UserSiswaController::class, 'index'])->name('user-siswa.index');
+
+    // Manajemen Akun Wali
+    Route::get('/user-wali', [UserWaliKelasController::class, 'index'])->name('user-wali.index');
+
+    // Manajemen Transaksi Masuk
+    Route::get('/transaksi-masuk', [TransaksiMasukController::class, 'index'])->name('transaksi-masuk.index');
+
+    // Majement Transaksi Keluar
+    Route::get('/transaksi-keluar', [TransaksiKeluarController::class, 'index'])->name('transaksi-keluar.index');
+
+    // SISWA ROUTES
+    Route::get('transaksi-history', [TransaksiMasukController::class, 'history'])->name('transaksi.history');
+    Route::get('transaksi-report', [TransaksiKeluarController::class, 'report'])->name('transaksi.report');
+
+    // Logout
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

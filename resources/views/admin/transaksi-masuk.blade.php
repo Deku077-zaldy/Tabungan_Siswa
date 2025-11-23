@@ -1,4 +1,4 @@
-<x-dashboard-layout :title="'Profil Pengguna'">
+<x-dashboard-layout :title="'Menabung'">
 
     <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Menabung</h1>
     <div

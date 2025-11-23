@@ -1,4 +1,4 @@
-<x-dashboard-layout>
+<x-dashboard-layout :title="'Dashboard'">
     <div class="col-span-12">
         <h1 class="text-2xl mb-5">Welcome back ! {{ Auth::user()->role }}</h1>
     </div>
@@ -51,7 +51,8 @@
             <div
                 class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 
                dark:bg-white/[0.03] md:p-6 w-full md:w-1/2">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 bg-green-100 text-green-500">
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 bg-green-100 text-green-500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="lucide lucide-banknote-arrow-up-icon lucide-banknote-arrow-up">
@@ -78,7 +79,8 @@
             <div
                 class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800
                dark:bg-white/[0.03] md:p-6 w-full md:w-1/2">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 bg-red-100 text-red-500">
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 bg-red-100 text-red-500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round"
@@ -124,7 +126,8 @@
             <div
                 class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 
                dark:bg-white/[0.03] md:p-6 w-full md:w-1/2">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 bg-green-100 text-green-500">
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 bg-green-100 text-green-500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-piggy-bank">
@@ -149,7 +152,8 @@
             <div
                 class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800
                dark:bg-white/[0.03] md:p-6 w-full md:w-1/2">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 bg-yellow-100 text-yellow-500">
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 bg-yellow-100 text-yellow-500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-history">
