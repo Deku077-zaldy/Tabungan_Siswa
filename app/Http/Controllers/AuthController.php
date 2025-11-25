@@ -23,7 +23,8 @@ class AuthController extends Controller
 
         // Jika siswa
         if ($user->role === 'siswa') {
-            return view('dashboard');
+            $info = Auth::user()->infoTabungan();
+            return view('dashboard', compact('info'));
         }
     }
 

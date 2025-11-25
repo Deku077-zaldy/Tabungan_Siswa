@@ -16,7 +16,7 @@
             <div class="text-center">
                 <h2 class="text-xl font-semibold mt-5 text-gray-800 dark:text-white/90">
                     {{ Auth::user()->username }}</h2>
-                <p class="text-gray-700 dark:text-gray-400 mt-2">Kelas 5 </p>
+                <p class="text-gray-700 dark:text-gray-400 mt-2">Kelas {{ Auth::user()->kelas }} </p>
             </div>
         </div>
         <div
@@ -118,7 +118,7 @@
             <div class="text-center">
                 <h2 class="text-xl font-semibold mt-5 text-gray-800 dark:text-white/90">
                     {{ Auth::user()->username }}</h2>
-                <p class="text-gray-700 dark:text-gray-400 mt-2">Kelas 5 </p>
+                <p class="text-gray-700 dark:text-gray-400 mt-2">Kelas {{ Auth::user()->kelas }} </p>
             </div>
         </div>
         <div class="flex flex-col md:flex-row gap-6">
@@ -142,7 +142,7 @@
                     <div>
                         <span class="text-sm text-gray-500 dark:text-gray-400">Income</span>
                         <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90">
-                            Rp 12.500.000
+                            Rp {{ $info ? number_format($info['total'], 0, ',', '.') : 0 }}
                         </h4>
                     </div>
                 </div>
@@ -165,15 +165,29 @@
 
                 <div class="mt-5 flex items-end justify-between">
                     <div>
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Riwayat Terakhir</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400 capitalize">
+                            Riwayat Terakhir
+                            @if ($info['transaksi_terakhir'])
+                                {{ $info['transaksi_terakhir']->jenis }}
+                            @endif
+                        </span>
+
                         <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90">
-                            Setoran • Rp 20.000
+                            @if ($info['transaksi_terakhir'])
+                                Rp {{ number_format($info['transaksi_terakhir']->jumlah, 0, ',', '.') }}
+                            @else
+                                Belum ada transaksi
+                            @endif
                         </h4>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                            12 November 2025, 14:22 WITA
-                        </p>
+
+                        @if ($info['transaksi_terakhir'])
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                {{ $info['transaksi_terakhir']->created_at->translatedFormat('d F Y, H:i') }} WITA
+                            </p>
+                        @endif
                     </div>
                 </div>
+
             </div>
         </div>
     @endif

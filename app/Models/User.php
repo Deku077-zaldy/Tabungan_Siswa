@@ -16,6 +16,8 @@ class User extends Authenticatable
         'username',
         'password',
         'role',
+        'kelas',
+        'no_hp',
     ];
 
     protected $hidden = [
@@ -47,5 +49,33 @@ class User extends Authenticatable
     public function waliKelas()
     {
         return $this->hasOne(WaliKelas::class);
+    }
+
+    public function infoTabungan()
+    {
+        if (!$this->siswa) {
+            return [
+                'total' => 0,
+                'transaksi_terakhir' => null,
+            ];
+        }
+
+        $transaksi = $this->siswa->transaksi();
+
+        // hitung saldo
+        $setor = $this->siswa->transaksi()->where('jenis', 'setor')->sum('jumlah');
+        $tarik = $this->siswa->transaksi()->where('jenis', 'tarik')->sum('jumlah');
+        $total = $setor - $tarik;
+
+        // dapatkan transaksi terakhir (tanpa terpengaruh filter sebelumnya)
+        $terakhir = $this->siswa->transaksi()
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        return [
+            'total' => $total,
+            'transaksi_terakhir' => $terakhir,
+        ];
     }
 }

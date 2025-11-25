@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->enum('role', ['siswa', 'wali_kelas']);
+            $table->string('kelas');
+            $table->string('no_hp')->nullable();
             $table->timestamps();
         });
 
