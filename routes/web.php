@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::redirect('/', '/dashboard');
     Route::get('/dashboard', [AuthController::class, 'index'])->name('dashboard.index');
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
 
     // Menajemen Akun Siswa
     Route::get('/user-siswa', [UserSiswaController::class, 'index'])->name('user-siswa.index');
