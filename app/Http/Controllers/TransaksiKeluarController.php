@@ -30,13 +30,6 @@ class TransaksiKeluarController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function report()
-    {
-        return view('user.transaksi-report');
-    }
 
     /**
      * Show the form for editing the specified resource.

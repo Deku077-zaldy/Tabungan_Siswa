@@ -36,7 +36,10 @@ Route::middleware('auth')->group(function () {
 
     // SISWA ROUTES
     Route::get('transaksi-history', [UserSiswaController::class, 'history'])->name('transaksi.history');
-    Route::get('transaksi-report', [TransaksiKeluarController::class, 'report'])->name('transaksi.report');
+    Route::get('transaksi-report', [UserSiswaController::class, 'report'])->name('transaksi.report');
+    Route::get('/transaksi/report/download', [UserSiswaController::class, 'downloadReport'])
+        ->name('transaksi.report.download');
+
 
     // Logout
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

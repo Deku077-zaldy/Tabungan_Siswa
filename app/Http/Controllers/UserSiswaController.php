@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
 class UserSiswaController extends Controller
@@ -81,5 +83,53 @@ class UserSiswaController extends Controller
             ->paginate(10);
         // dd($transaksi);
         return view('user.transaksi-history', compact('transaksi'));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function report()
+    {
+        $siswa = auth()->user()->siswa;
+
+        // Ambil semua transaksi siswa
+        $months = $siswa->transaksi()
+            ->selectRaw("DATE_FORMAT(tanggal, '%Y-%m') as ym")
+            ->groupBy('ym')
+            ->orderBy('ym', 'desc')
+            ->get()
+            ->map(function ($row) {
+                return [
+                    'ym' => $row->ym,
+                    'label' => \Carbon\Carbon::parse($row->ym . '-01')->translatedFormat('F Y')
+                ];
+            });
+
+        return view('user.transaksi-report', compact('months'));
+    }
+
+
+    public function downloadReport(Request $request)
+    {
+        $bulan = $request->bulan; // contoh: 2025-11
+        [$tahun, $bulan_angka] = explode('-', $bulan);
+
+        $siswa = auth()->user()->siswa;
+
+        $transaksi = \App\Models\Transaksi::where('siswa_id', $siswa->id)
+            ->whereYear('tanggal', $tahun)
+            ->whereMonth('tanggal', $bulan_angka)
+            ->orderBy('tanggal')
+            ->get();
+
+        $pdf = Pdf::loadView('user.transaksi-report-pdf', [
+            'siswa' => $siswa,
+            'bulan' => $bulan,
+            'transaksi' => $transaksi,
+        ]);
+
+        $nama_file = 'Laporan-' . Carbon::parse($bulan . '-01')->translatedFormat('F-Y') . '.pdf';
+
+        return $pdf->download($nama_file);
     }
 }
