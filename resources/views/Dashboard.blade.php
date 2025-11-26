@@ -140,7 +140,7 @@
 
                 <div class="mt-5 flex items-end justify-between">
                     <div>
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Income</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Total Tabungan</span>
                         <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90">
                             Rp {{ $info ? number_format($info['total'], 0, ',', '.') : 0 }}
                         </h4>
