@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserSiswaController extends Controller
 {
@@ -60,5 +61,25 @@ class UserSiswaController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function history()
+    {
+        $user = Auth::user();
+
+        // Pastikan user adalah siswa
+        if (!$user->siswa) {
+            abort(403, 'Hanya siswa yang dapat melihat halaman ini.');
+        }
+
+        // Ambil semua transaksi siswa
+        $transaksi = $user->siswa->transaksi()
+            ->orderBy('tanggal', 'desc')
+            ->paginate(10);
+        // dd($transaksi);
+        return view('user.transaksi-history', compact('transaksi'));
     }
 }

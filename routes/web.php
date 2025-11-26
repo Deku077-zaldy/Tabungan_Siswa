@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaksi-keluar', [TransaksiKeluarController::class, 'index'])->name('transaksi-keluar.index');
 
     // SISWA ROUTES
-    Route::get('transaksi-history', [TransaksiMasukController::class, 'history'])->name('transaksi.history');
+    Route::get('transaksi-history', [UserSiswaController::class, 'history'])->name('transaksi.history');
     Route::get('transaksi-report', [TransaksiKeluarController::class, 'report'])->name('transaksi.report');
 
     // Logout

@@ -31,14 +31,6 @@ class TransaksiMasukController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function history()
-    {
-        return view('user.transaksi-history');
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
