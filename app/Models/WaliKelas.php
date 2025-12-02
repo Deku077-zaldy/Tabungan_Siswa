@@ -14,6 +14,7 @@ class WaliKelas extends Model
     protected $fillable = [
         'user_id',
         'nama',
+        'nip',
         'kelas',
     ];
 

@@ -27,6 +27,10 @@ Route::middleware('auth')->group(function () {
 
     // Manajemen Akun Wali
     Route::get('/user-wali', [UserWaliKelasController::class, 'index'])->name('user-wali.index');
+    Route::get('/user-wali/create', [UserWaliKelasController::class, 'create'])->name('user-wali.create');
+    Route::post('/user-wali/store', [UserWaliKelasController::class, 'store'])->name('user-wali.store');
+    Route::get('/user-wali/edit/{id}', [UserWaliKelasController::class, 'edit'])->name('user-wali.edit');
+    Route::put('/user-wali/update/{id}', [UserWaliKelasController::class, 'update'])->name('user-wali.update');
 
     // Manajemen Transaksi Masuk
     Route::get('/transaksi-masuk', [TransaksiMasukController::class, 'index'])->name('transaksi-masuk.index');
