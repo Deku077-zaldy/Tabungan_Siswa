@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +15,21 @@ class UserSiswaController extends Controller
      */
     public function index()
     {
-        return view('admin.account-siswa');
+        // Ambil kelas wali dari tabel users
+        $kelasWali = auth()->user()->kelas;
+
+        // Ambil ID wali kelas dari tabel users
+        $waliId = auth()->user()->waliKelas->id;
+
+        // Ambil semua siswa yang wali_kelas_id cocok dengan wali yang login
+        $siswaKelas = Siswa::where('wali_kelas_id', $waliId)
+            ->with('transaksi')
+            ->get();
+            // dd($siswaKelas);
+
+        return view('admin.account-siswa', compact('siswaKelas', 'kelasWali'));
     }
+
 
     /**
      * Show the form for creating a new resource.

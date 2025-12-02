@@ -34,4 +34,12 @@ class Siswa extends Model
     {
         return $this->hasMany(Transaksi::class, 'siswa_id');
     }
+
+    public function getTotalTabunganAttribute()
+    {
+        $masuk = $this->transaksi()->where('jenis', 'setor')->sum('jumlah');
+        $keluar = $this->transaksi()->where('jenis', 'tarik')->sum('jumlah');
+
+        return $masuk - $keluar;
+    }
 }
