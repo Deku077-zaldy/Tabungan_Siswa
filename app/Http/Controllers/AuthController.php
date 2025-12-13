@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,13 +19,26 @@ class AuthController extends Controller
         // dd($user);
         // Jika wali kelas
         if ($user->role === 'wali_kelas') {
+
             return view('dashboard');
         }
 
         // Jika siswa
         if ($user->role === 'siswa') {
             $info = Auth::user()->infoTabungan();
-            return view('dashboard', compact('info'));
+            $idSiswa = $user->siswa->id;
+            $totalSaldoPerTahun = DB::select("
+                SELECT 
+                    YEAR(tanggal) AS tahun,
+                    SUM(CASE WHEN jenis = 'setor' THEN jumlah ELSE 0 END) -
+                    SUM(CASE WHEN jenis = 'tarik' THEN jumlah ELSE 0 END) AS total_tabungan
+                FROM transaksi
+                WHERE siswa_id = ?
+                GROUP BY YEAR(tanggal)
+                ORDER BY tahun ASC
+            ", [$idSiswa]);
+
+            return view('dashboard', compact('info', 'totalSaldoPerTahun'));
         }
     }
 

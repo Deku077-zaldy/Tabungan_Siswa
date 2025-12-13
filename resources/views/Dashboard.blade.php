@@ -187,8 +187,103 @@
                         @endif
                     </div>
                 </div>
-
             </div>
+        </div>
+        <div>
+            {{-- Grafik Tabungan Per Tahun --}}
+            @if (isset($totalSaldoPerTahun) && count($totalSaldoPerTahun) > 0)
+                <div
+                    class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800
+        dark:bg-white/[0.03] md:p-6 mt-6">
+
+                    <h4 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">
+                        Grafik Tabungan Per Tahun
+                    </h4>
+
+                    <canvas id="tabunganChart" height="120"></canvas>
+                </div>
+
+                {{-- Chart.js CDN --}}
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                {{-- Script untuk membuat grafik --}}  
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const rawData = @json($totalSaldoPerTahun);
+
+                        const labels = rawData.map(item => item.tahun);
+                        const data = rawData.map(item => Number(item.total_tabungan));
+
+                        const backgroundColors = [
+                            'rgba(59, 130, 246, 0.6)', // biru
+                            'rgba(34, 197, 94, 0.6)', // hijau
+                            'rgba(234, 179, 8, 0.6)', // kuning
+                            'rgba(239, 68, 68, 0.6)', // merah
+                            'rgba(168, 85, 247, 0.6)', // ungu
+                            'rgba(14, 165, 233, 0.6)' // cyan
+                        ];
+
+                        const borderColors = [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(34, 197, 94, 1)',
+                            'rgba(234, 179, 8, 1)',
+                            'rgba(239, 68, 68, 1)',
+                            'rgba(168, 85, 247, 1)',
+                            'rgba(14, 165, 233, 1)'
+                        ];
+
+                        const ctx = document.getElementById('tabunganChart').getContext('2d');
+
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Total Tabungan (Rp)',
+                                    data: data,
+                                    backgroundColor: backgroundColors,
+                                    borderColor: borderColors,
+                                    borderWidth: 2,
+                                    borderRadius: 8
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function(context) {
+                                                return 'Rp ' + new Intl.NumberFormat('id-ID')
+                                                    .format(context.raw);
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            callback: function(value) {
+                                                return 'Rp ' + new Intl.NumberFormat('id-ID').format(value);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
+            @else
+                <div
+                    class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800
+        dark:bg-white/[0.03] md:p-6 mt-6 text-center text-gray-500">
+                    Belum ada data tabungan untuk ditampilkan.
+                </div>
+            @endif
+
         </div>
     @endif
 </x-dashboard-layout>
