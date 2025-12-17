@@ -2,18 +2,18 @@
 <aside :class="sidebarToggle ? 'translate-x-0 lg:w-[90px]' : '-translate-x-full'"
     class="sidebar fixed left-0 top-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 dark:border-gray-800 dark:bg-black lg:static lg:translate-x-0">
     <!-- SIDEBAR HEADER -->
-    <div :class="sidebarToggle ? 'justify-center' : 'justify-between'"
-        class="flex items-center gap-2 pt-8 sidebar-header pb-7">
-        <a href="index.html">
+    <div class="flex items-center justify-center pt-8 pb-7 sidebar-header">
+        <a href="index.html" class="flex justify-center w-full">
             <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
-                <img class="dark:hidden" src="./images/logo/logo.svg" alt="Logo" />
-                <img class="hidden dark:block" src="./images/logo/logo-dark.svg" alt="Logo" />
+                <img class="dark:hidden h-[92px] w-auto mx-auto" src="./images/babi.png" alt="Logo" />
+                <img class="hidden dark:block h-10 w-auto mx-auto" src="./images/logo/logo-dark.svg" alt="Logo" />
             </span>
 
-            <img class="logo-icon" :class="sidebarToggle ? 'lg:block' : 'hidden'" src="./images/logo/logo-icon.svg"
-                alt="Logo" />
+            <img class="logo-icon h-10 w-auto" :class="sidebarToggle ? 'block' : 'hidden'"
+                src="./images/logo/logo-icon.svg" alt="Logo" />
         </a>
     </div>
+
     <!-- SIDEBAR HEADER -->
 
     <div class="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
@@ -59,7 +59,8 @@
 
                     {{-- History --}}
                     <li>
-                        <a href="{{ route('transaksi.history') }}" class="menu-item group {{ Request::is('transaksi-history*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                        <a href="{{ route('transaksi.history') }}"
+                            class="menu-item group {{ Request::is('transaksi-history*') ? 'menu-item-active' : 'menu-item-inactive' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-history-icon lucide-history">
@@ -73,7 +74,8 @@
 
                     {{-- Laporan --}}
                     <li>
-                        <a href="{{ route('transaksi.report') }}" class="menu-item group {{ Request::is('transaksi-report*') ? 'menu-item-active' : 'menu-item-inactive' }}">
+                        <a href="{{ route('transaksi.report') }}"
+                            class="menu-item group {{ Request::is('transaksi-report*') ? 'menu-item-active' : 'menu-item-inactive' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-notepad-text-icon lucide-notepad-text">

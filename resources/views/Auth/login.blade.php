@@ -27,7 +27,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                 <div class="w-full max-w-md pt-10 mx-auto">
                     <a href="index.html"
                         class="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
-                        Nama Aplikasi
+                        Copyright © 2025 Soft by Dicky
                     </a>
                 </div>
                 <div class="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
@@ -123,17 +123,20 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                 </div>
             </div>
 
-            <div class="relative items-center hidden w-full h-full bg-brand-950 dark:bg-white/5 lg:grid lg:w-1/2">
-                <div class="flex items-center justify-center z-1">
-                    <!-- ===== Common Grid Shape Start ===== -->
+            <div class="relative hidden lg:flex w-1/2 h-screen bg-brand-950 dark:bg-white/5">
+                <div class="flex flex-col items-center justify-center w-full h-full">
+
+                    <!-- Common Grid Shape -->
                     <include src="./partials/common-grid-shape.html"></include>
-                    <div class="flex flex-col items-center max-w-xs">
-                        <a href="index.html" class="block mb-4">
-                            <img src="./images/logo/auth-logo.svg" alt="Logo" />
-                        </a>
-                    </div>
+
+                    <a href="index.html" class="block">
+                        <img src="{{ asset('images/login_logo.png') }}" alt="Logo"
+                            class="max-w-full h-auto object-contain" />
+                    </a>
+
                 </div>
             </div>
+
         </div>
     </div>
     <!-- ===== Page Wrapper End ===== -->
