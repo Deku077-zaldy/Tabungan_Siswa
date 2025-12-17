@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserSiswaController extends Controller
 {
@@ -25,7 +28,7 @@ class UserSiswaController extends Controller
         $siswaKelas = Siswa::where('wali_kelas_id', $waliId)
             ->with('transaksi')
             ->get();
-            // dd($siswaKelas);
+        // dd($siswaKelas);
 
         return view('admin.account-siswa', compact('siswaKelas', 'kelasWali'));
     }
@@ -36,7 +39,7 @@ class UserSiswaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create-account-siswa');
     }
 
     /**
@@ -44,7 +47,43 @@ class UserSiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $waliId = Auth::user()->id;
+
+        $request->validate([
+            'username' => 'required|unique:users,username',
+            'password' => 'required|min:6',
+            'nama'     => 'required',
+            'kelas'    => 'required|integer|between:1,6',
+            'no_hp'    => 'required',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $user = User::create([
+                'username' => $request->username,
+                'password' => Hash::make($request->password),
+                'role'     => 'siswa',
+                'no_hp'    => $request->no_hp,
+                'kelas'    => $request->kelas,
+            ]);
+
+            Siswa::create([
+                'user_id' => $user->id,
+                'nama'    => $request->nama,
+                'wali_kelas_id' => $waliId,
+                'status'  => 'aktif',
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('user-siswa.index')->with('success', 'Siswa berhasil ditambahkan.');
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**

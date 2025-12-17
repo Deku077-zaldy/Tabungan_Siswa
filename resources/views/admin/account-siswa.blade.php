@@ -27,7 +27,7 @@
         </div>
     @endif
     <div class="mb-3 mt-3">
-        <a href="{{ route('user-wali.create') }}"
+        <a href="{{ route('user-siswa.create') }}"
             class="inline-flex items-center gap-2 px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600">
             Tambah Akun
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
