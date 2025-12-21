@@ -151,7 +151,7 @@
                             </a>
                         </div>
                         <div class="flex items-center justify-center gap-2">
-                            <a href=""
+                            <a href="{{ route('user-siswa.edit', ['id' => $siswa->id]) }}"
                                 class="inline-block rounded-lg bg-yellow-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:focus:ring-yellow-900">
                                 Edit
                             </a>

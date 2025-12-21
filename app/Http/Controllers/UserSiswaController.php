@@ -107,7 +107,8 @@ class UserSiswaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $siswa = Siswa::with('user')->findOrFail($id);
+        return view('admin.edit-account-siswa', compact('siswa'));
     }
 
     /**
@@ -115,7 +116,49 @@ class UserSiswaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $siswa = Siswa::with('user')->findOrFail($id);
+
+        $request->validate([
+            'username' => 'required|unique:users,username,' . $siswa->user->id,
+            'nama'     => 'required',
+            'no_hp'    => 'required',
+            'status'   => 'required|in:aktif,non-aktif',
+            'password' => 'nullable|min:6', // password opsional
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            // Data user
+            $userData = [
+                'username' => $request->username,
+                'no_hp'    => $request->no_hp,
+            ];
+
+            // ✅ update password HANYA jika diisi
+            if ($request->filled('password')) {
+                $userData['password'] = Hash::make($request->password);
+            }
+
+            $siswa->user->update($userData);
+
+            // Update data siswa
+            $siswa->update([
+                'nama'   => $request->nama,
+                'status' => $request->status,
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('user-siswa.index')
+                ->with('success', 'Data siswa berhasil diperbarui.');
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+            dd($e->getMessage());
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**
