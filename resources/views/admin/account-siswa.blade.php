@@ -145,15 +145,21 @@
                     </td>
                     <td class="px-6 py-3 whitespace-nowrap flex items-center justify-center gap-2">
                         <div class="flex items-center justify-center gap-2">
-                            <a href=""
+                            <a href="{{ route('user-siswa.history', ['id' => $siswa->id]) }}"
                                 class="inline-block rounded-lg bg-blue-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                                 History
                             </a>
                         </div>
                         <div class="flex items-center justify-center gap-2">
                             <a href=""
-                                class="inline-block rounded-lg bg-blue-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                                class="inline-block rounded-lg bg-yellow-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:focus:ring-yellow-900">
                                 Edit
+                            </a>
+                        </div>
+                         <div class="flex items-center justify-center gap-2">
+                            <a href=""
+                                class="inline-block rounded-lg bg-green-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900">
+                                Naik Kelas
                             </a>
                         </div>
                     </td>

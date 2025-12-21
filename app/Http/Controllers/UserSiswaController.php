@@ -89,9 +89,17 @@ class UserSiswaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function student_history(string $id)
     {
-        //
+        // cari siswa berdasarkan ID siswa
+        $siswa = Siswa::findOrFail($id);
+
+        // Ambil semua transaksi siswa
+        $transaksi = $siswa->transaksi()
+            ->orderBy('tanggal', 'desc')
+            ->paginate(10);
+        // dd($transaksi);
+        return view('admin.siswa-history', compact('transaksi', 'siswa'));
     }
 
     /**

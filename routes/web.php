@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/user-siswa/store', [UserSiswaController::class, 'store'])->name('user-siswa.store');
     Route::get('/user-siswa/edit/{id}', [UserSiswaController::class, 'edit'])->name('user-siswa.edit');
     Route::put('/user-siswa/update/{id}', [UserSiswaController::class, 'update'])->name('user-siswa.update');
+    Route::get('/user-siswa/history/{id}', [UserSiswaController::class, 'student_history'])->name('user-siswa.history');
 
     // Manajemen Akun Wali
     Route::get('/user-wali', [UserWaliKelasController::class, 'index'])->name('user-wali.index');
