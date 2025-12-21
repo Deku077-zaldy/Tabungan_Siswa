@@ -236,4 +236,60 @@ class UserSiswaController extends Controller
 
         return $pdf->download($nama_file);
     }
+
+    public function naik_kelas(string $id)
+    {
+        $siswa = Siswa::with('user')->findOrFail($id);
+
+        if ($siswa->status !== 'aktif') {
+            return redirect()->back()
+                ->with('error', 'Siswa tidak aktif dan tidak dapat naik kelas.');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            // Jika kelas 6 → lulus
+            if ($siswa->user->kelas >= 6) {
+                $siswa->update([
+                    'status' => 'non-aktif',
+                ]);
+
+                DB::commit();
+
+                return redirect()->back()
+                    ->with('success', 'Siswa telah lulus dan dinon-aktifkan.');
+            }
+
+            // ✅ Naik kelas
+            $kelasBaru = $siswa->user->kelas + 1;
+
+            $siswa->user->update([
+                'kelas' => $kelasBaru,
+            ]);
+
+            // ✅ Cari wali kelas sesuai kelas baru
+            $waliKelas = User::where('role', 'wali_kelas')
+                ->where('kelas', $kelasBaru)
+                ->first();
+
+            // ✅ Update wali_kelas_id jika ditemukan
+            if ($waliKelas) {
+                $siswa->update([
+                    'wali_kelas_id' => $waliKelas->waliKelas->id,
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->back()
+                ->with('success', 'Siswa berhasil naik ke kelas ' . $kelasBaru . '.');
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
 }

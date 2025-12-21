@@ -156,12 +156,21 @@
                                 Edit
                             </a>
                         </div>
-                         <div class="flex items-center justify-center gap-2">
-                            <a href=""
-                                class="inline-block rounded-lg bg-green-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900">
-                                Naik Kelas
-                            </a>
-                        </div>
+                        @if ($siswa->user->kelas < 6)
+                            <div class="flex items-center justify-center gap-2">
+                                <a href="{{ route('user-siswa.naik-kelas', ['id' => $siswa->id]) }}"
+                                    class="inline-block rounded-lg bg-green-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900">
+                                    Naik Kelas
+                                </a>
+                            </div>
+                        @else
+                            <div class="flex items-center justify-center gap-2">
+                                <a href="{{ route('user-siswa.naik-kelas', ['id' => $siswa->id]) }}"
+                                    class="inline-block rounded-lg bg-green-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900">
+                                    Tamat
+                                </a>
+                            </div>
+                        @endif
                     </td>
                 </tr>
             @endforeach
