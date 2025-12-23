@@ -1,11 +1,12 @@
 <x-dashboard-layout :title="'History Transaksi'">
 
     <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">History Transaksi</h1>
-    <div class="mb-6 rounded-2xl  border-gray-200 p-5 lg:p-6 dark:border-gray-800">
+    <div class="mb-6 rounded-2xl border bg-white border-gray-200 p-5 lg:p-6 dark:border-gray-800">
         <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
             <div class="flex w-full flex-col items-center gap-6 xl:flex-row">
                 <div class="h-20 w-20 overflow-hidden rounded-full border border-gray-200 dark:border-gray-800">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2560px-User_icon_2.svg.png" alt="user">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2560px-User_icon_2.svg.png"
+                        alt="user">
                 </div>
                 <div class="order-3 xl:order-2">
                     <h4 class="mb-2 text-center text-lg font-semibold text-gray-800 xl:text-left dark:text-white/90">

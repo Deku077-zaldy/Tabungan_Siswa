@@ -3,8 +3,7 @@
 use Pest\Support\View;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\TransaksiMasukController;
-use App\Http\Controllers\TransaksiKeluarController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserSiswaController;
 use App\Http\Controllers\UserWaliKelasController;
 
@@ -38,11 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/user-wali/edit/{id}', [UserWaliKelasController::class, 'edit'])->name('user-wali.edit');
     Route::put('/user-wali/update/{id}', [UserWaliKelasController::class, 'update'])->name('user-wali.update');
 
-    // Manajemen Transaksi Masuk
-    Route::get('/transaksi-masuk', [TransaksiMasukController::class, 'index'])->name('transaksi-masuk.index');
-
-    // Majement Transaksi Keluar
-    Route::get('/transaksi-keluar', [TransaksiKeluarController::class, 'index'])->name('transaksi-keluar.index');
+    // Majement Transaksi
+    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/transaksi/create/{id}', [TransaksiController::class, 'create'])->name('transaksi.create');
+    Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
 
     // SISWA ROUTES
     Route::get('transaksi-history', [UserSiswaController::class, 'history'])->name('transaksi.history');
