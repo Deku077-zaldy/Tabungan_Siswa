@@ -1,6 +1,6 @@
-<x-dashboard-layout :title="'Tarik Tabungan'">
+<x-dashboard-layout :title="'Transaksi Tabungan'">
 
-    <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Tarik Tabungan</h1>
+    <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Transaksi Tabungan</h1>
     <div x-data="dataTable()"
         class="overflow-hidden rounded-2xl border border-gray-200 bg-white pt-4 dark:border-gray-800 dark:bg-white/[0.03]">
         <div class="flex flex-col gap-5 px-6 mb-4 sm:flex-row sm:items-center sm:justify-between">

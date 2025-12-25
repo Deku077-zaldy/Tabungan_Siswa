@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
@@ -37,7 +39,7 @@ class TransaksiController extends Controller
      */
     public function create(string $id)
     {
-        $siswa = Siswa::findOrFail($id);
+        $siswa = Siswa::with(['transaksi'])->findOrFail($id);
         $waliKelasID = auth()->user()->waliKelas->id;
         return view('admin.create-transaksi', compact('siswa', 'waliKelasID'));
     }
@@ -47,7 +49,55 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-    
+        // VALIDASI
+        $request->validate([
+            'siswa_id'    => 'required|exists:siswa,id',
+            'jumlah'      => 'required|numeric|min:1000',
+            'jenis'       => 'required|in:setor,tarik',
+            'catatan'     => 'nullable|string|max:255',
+            'dibuat_oleh' => 'required|exists:wali_kelas,id',
+        ]);
+
+        // AMBIL DATA SISWA
+        $siswa = Siswa::findOrFail($request->siswa_id);
+        $totalTabungan = $siswa->total_tabungan;
+
+        // VALIDASI TARIK TIDAK BOLEH > SALDO
+        if ($request->jenis === 'tarik' && $request->jumlah > $totalTabungan) {
+            return back()
+                ->withErrors([
+                    'jumlah' => 'Jumlah penarikan melebihi saldo tabungan'
+                ])
+                ->withInput();
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            // SIMPAN TRANSAKSI
+            Transaksi::create([
+                'siswa_id'     => $request->siswa_id,
+                'dibuat_oleh' => $request->dibuat_oleh,
+                'jenis'        => $request->jenis,
+                'jumlah'       => $request->jumlah,
+                'tanggal'      => now(),
+                'catatan'      => $request->catatan,
+            ]);
+
+            DB::commit();
+
+            return redirect()
+                ->route('transaksi.index')
+                ->with('success', 'Transaksi berhasil disimpan.');
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage())
+                ->withInput();
+        }
     }
 
 
