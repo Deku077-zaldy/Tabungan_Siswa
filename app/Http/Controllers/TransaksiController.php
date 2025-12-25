@@ -21,7 +21,7 @@ class TransaksiController extends Controller
         $waliId = auth()->user()->waliKelas->id;
 
         // Ambil semua siswa yang wali_kelas_id cocok dengan wali yang login
-        $datasiswa = Siswa::where('wali_kelas_id', $waliId)->with('transaksi')->get()->map(function ($siswa) {
+        $datasiswa = Siswa::where('wali_kelas_id', $waliId)->where('status', 'aktif')->with('transaksi')->get()->map(function ($siswa) {
             return [
                 'id' => $siswa->id,
                 'nama' => $siswa->nama,

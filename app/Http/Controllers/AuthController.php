@@ -19,8 +19,32 @@ class AuthController extends Controller
         // dd($user);
         // Jika wali kelas
         if ($user->role === 'wali_kelas') {
+            $waliKelasId = $user->waliKelas->id;
 
-            return view('dashboard');
+            $totalTabunganKelas = DB::table('transaksi')
+                ->join('siswa', 'transaksi.siswa_id', '=', 'siswa.id')
+                ->where('siswa.wali_kelas_id', $waliKelasId)
+                ->where('siswa.status', 'aktif')
+                ->selectRaw("
+            SUM(CASE WHEN transaksi.jenis = 'setor' THEN transaksi.jumlah ELSE 0 END) -
+            SUM(CASE WHEN transaksi.jenis = 'tarik' THEN transaksi.jumlah ELSE 0 END)
+            AS total_tabungan
+        ")
+                ->value('total_tabungan');
+
+            $rekapTransaksi = DB::table('transaksi')
+                ->join('siswa', 'transaksi.siswa_id', '=', 'siswa.id')
+                ->where('siswa.wali_kelas_id', $waliKelasId)
+                ->where('siswa.status', 'aktif')
+                ->where('dibuat_oleh', $waliKelasId)
+                ->selectRaw("
+        COUNT(CASE WHEN transaksi.jenis = 'setor' THEN 1 END) AS setor,
+        COUNT(CASE WHEN transaksi.jenis = 'tarik' THEN 1 END) AS tarik
+    ")
+                ->first();
+
+
+            return view('dashboard', compact('totalTabunganKelas', 'rekapTransaksi'));
         }
 
         // Jika siswa
