@@ -153,14 +153,16 @@
                         @if ($siswa->user->kelas < 6)
                             <div class="flex items-center justify-center gap-2">
                                 <a href="{{ route('user-siswa.naik-kelas', ['id' => $siswa->id]) }}"
-                                    class="inline-block rounded-lg bg-green-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900">
+                                    class="btn-naik-kelas inline-block rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white
+                  hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300">
                                     Naik Kelas
                                 </a>
                             </div>
                         @else
                             <div class="flex items-center justify-center gap-2">
                                 <a href="{{ route('user-siswa.naik-kelas', ['id' => $siswa->id]) }}"
-                                    class="inline-block rounded-lg bg-green-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900">
+                                    class="btn-naik-kelas inline-block rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white
+                  hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300">
                                     Tamat
                                 </a>
                             </div>
@@ -172,4 +174,23 @@
         <!-- table body end -->
         </table>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.btn-naik-kelas');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    if (btn.dataset.clicked === 'true') {
+                        e.preventDefault(); // stop klik kedua
+                        return;
+                    }
+
+                    btn.dataset.clicked = 'true';
+                    btn.innerText = 'Memproses...';
+                    btn.classList.add('pointer-events-none', 'opacity-70');
+                });
+            });
+        });
+    </script>
+
 </x-dashboard-layout>
