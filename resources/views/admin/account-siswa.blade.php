@@ -152,21 +152,32 @@
                         </div>
                         @if ($siswa->user->kelas < 6)
                             <div class="flex items-center justify-center gap-2">
-                                <a href="{{ route('user-siswa.naik-kelas', ['id' => $siswa->id]) }}"
-                                    class="btn-naik-kelas inline-block rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white
-                  hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300">
-                                    Naik Kelas
-                                </a>
+                                <form method="POST"
+                                    action="{{ route('user-siswa.naik-kelas', ['id' => $siswa->id]) }}"
+                                    class="form-naik-kelas">
+                                    @csrf
+                                    <button type="submit"
+                                        class="btn-naik-kelas inline-block rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white
+                       hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300">
+                                        Naik Kelas
+                                    </button>
+                                </form>
                             </div>
                         @else
                             <div class="flex items-center justify-center gap-2">
-                                <a href="{{ route('user-siswa.naik-kelas', ['id' => $siswa->id]) }}"
-                                    class="btn-naik-kelas inline-block rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white
-                  hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300">
-                                    Tamat
-                                </a>
+                                <form method="POST"
+                                    action="{{ route('user-siswa.naik-kelas', ['id' => $siswa->id]) }}"
+                                    class="form-naik-kelas">
+                                    @csrf
+                                    <button type="submit"
+                                        class="btn-naik-kelas inline-block rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white
+                       hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300">
+                                        Tamat
+                                    </button>
+                                </form>
                             </div>
                         @endif
+
                     </td>
                 </tr>
             @endforeach
@@ -176,18 +187,12 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const buttons = document.querySelectorAll('.btn-naik-kelas');
-
-            buttons.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    if (btn.dataset.clicked === 'true') {
-                        e.preventDefault(); // stop klik kedua
-                        return;
-                    }
-
-                    btn.dataset.clicked = 'true';
+            document.querySelectorAll('.form-naik-kelas').forEach(form => {
+                form.addEventListener('submit', function() {
+                    const btn = form.querySelector('.btn-naik-kelas');
+                    btn.disabled = true;
                     btn.innerText = 'Memproses...';
-                    btn.classList.add('pointer-events-none', 'opacity-70');
+                    btn.classList.add('opacity-70', 'cursor-not-allowed');
                 });
             });
         });

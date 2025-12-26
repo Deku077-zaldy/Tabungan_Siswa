@@ -1,4 +1,4 @@
-w<?php
+<?php
 
 namespace Database\Seeders;
 
@@ -14,72 +14,33 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1️⃣ User Wali Kelas
-        $wali1 = User::create([
-            'username' => 'wali_kelas_5',
-            'password' => Hash::make('password'),
-            'role'     => 'wali_kelas',
-            'kelas'    => '5',
-            'no_hp'    => '081234567890',
-        ]);
+        // Data wali kelas
+        $dataWali = [
+            1 => ['nama' => 'Ibu Sari',   'nip' => '1111111111', 'no_hp' => '081111111111'],
+            2 => ['nama' => 'Ibu Lina',   'nip' => '2222222222', 'no_hp' => '082222222222'],
+            3 => ['nama' => 'Bapak Andi', 'nip' => '3333333333', 'no_hp' => '083333333333'],
+            4 => ['nama' => 'Bapak Rudi', 'nip' => '4444444444', 'no_hp' => '084444444444'],
+            5 => ['nama' => 'Ibu Rina',   'nip' => '5555555555', 'no_hp' => '085555555555'],
+            6 => ['nama' => 'Bapak Dedi', 'nip' => '6666666666', 'no_hp' => '086666666666'],
+        ];
 
-        $wali2 = User::create([
-            'username' => 'wali_kelas_6',
-            'password' => Hash::make('password'),
-            'role'     => 'wali_kelas',
-            'kelas'    => '6',
-            'no_hp'    => '089876543210',
-        ]);
+        foreach ($dataWali as $kelas => $wali) {
 
-        // 2️⃣ Data wali kelas
-        $waliKelas1 = WaliKelas::create([
-            'user_id' => $wali1->id,
-            'nama' => 'Ibu Rina',
-            'nip'  => '1234567890',
-        ]);
-
-        $waliKelas2 = WaliKelas::create([
-            'user_id' => $wali2->id,
-            'nama' => 'Bapak Dedi',
-            'nip'  => '9876543210',
-        ]);
-
-        // 3️⃣ User siswa
-        $siswaUsers = [];
-        for ($i = 1; $i <= 5; $i++) {
-            $siswaUsers[] = User::create([
-                'username' => 'siswa' . $i,
+            // 1️⃣ User wali kelas
+            $user = User::create([
+                'username' => 'wali_kelas_' . $kelas,
                 'password' => Hash::make('password'),
-                'role'     => 'siswa',
-                'kelas'    => $i < 4 ? '5' : '6', // 3 siswa kelas 5, 2 siswa kelas 6
-                'no_hp'    => '08' . rand(1000000000, 9999999999),
+                'role'     => 'wali_kelas',
+                'kelas'    => $kelas,
+                'no_hp'    => $wali['no_hp'],
             ]);
-        }
 
-        // 4️⃣ Data siswa
-        $siswas = [];
-        foreach ($siswaUsers as $index => $user) {
-            $wali = $index < 3 ? $waliKelas1 : $waliKelas2;
-            $siswas[] = Siswa::create([
-                'user_id'       => $user->id,
-                'wali_kelas_id' => $wali->id,
-                'nama'          => 'Siswa ' . ($index + 1),
-                'status'        => 'aktif',
+            // 2️⃣ Data wali kelas
+            WaliKelas::create([
+                'user_id' => $user->id,
+                'nama'    => $wali['nama'],
+                'nip'     => $wali['nip'],
             ]);
-        }
-
-        // 5️⃣ Transaksi tabungan
-        foreach ($siswas as $siswa) {
-            for ($i = 1; $i <= 3; $i++) {
-                Transaksi::create([
-                    'siswa_id'   => $siswa->id,
-                    'tanggal'    => Carbon::now()->subDays(rand(0, 30)),
-                    'jenis'      => $i % 2 === 0 ? 'tarik' : 'setor',
-                    'jumlah'     => rand(5000, 50000),
-                    'keterangan' => 'Transaksi ke-' . $i,
-                    'dibuat_oleh' => $siswa->wali_kelas_id,
-                ]);
-            }
         }
 
         $this->command->info('🚀 Database seeding berhasil!');
