@@ -26,6 +26,7 @@ class UserSiswaController extends Controller
 
         // Ambil semua siswa yang wali_kelas_id cocok dengan wali yang login
         $siswaKelas = Siswa::where('wali_kelas_id', $waliId)
+            ->where('status', 'aktif')
             ->with('transaksi')
             ->get();
         // dd($siswaKelas);

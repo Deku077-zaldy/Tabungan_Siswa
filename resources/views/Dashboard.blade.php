@@ -36,12 +36,12 @@
 
                 <!-- Title -->
                 <span class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                    Total Tabungan Kelas 5
+                    Total Tabungan Kelas {{ Auth::user()->kelas }}
                 </span>
 
                 <!-- Amount -->
                 <span class="text-3xl font-bold text-blue-500">
-                    Rp. 213.000.000
+                    Rp. {{ number_format($totalTabunganKelas ?? 0, 0, ',', '.') }}
                 </span>
             </div>
         </div>
@@ -69,7 +69,7 @@
                     <div>
                         <span class="text-sm text-gray-500 dark:text-gray-400">Transaksi Masuk</span>
                         <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90">
-                            10 Transaksi Masuk
+                            {{ $rekapTransaksi->setor ?? 0 }} Transaksi Masuk
                         </h4>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                     <div>
                         <span class="text-sm text-gray-500 dark:text-gray-400">Transaksi Keluar</span>
                         <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90">
-                            20 Transaksi Keluar
+                            {{ $rekapTransaksi->tarik ?? 0 }} Transaksi Keluar
                         </h4>
                     </div>
                 </div>

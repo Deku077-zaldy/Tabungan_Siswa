@@ -3,8 +3,7 @@
 use Pest\Support\View;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\TransaksiMasukController;
-use App\Http\Controllers\TransaksiKeluarController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserSiswaController;
 use App\Http\Controllers\UserWaliKelasController;
 
@@ -28,21 +27,20 @@ Route::middleware('auth')->group(function () {
     Route::post('/user-siswa/store', [UserSiswaController::class, 'store'])->name('user-siswa.store');
     Route::get('/user-siswa/edit/{id}', [UserSiswaController::class, 'edit'])->name('user-siswa.edit');
     Route::put('/user-siswa/update/{id}', [UserSiswaController::class, 'update'])->name('user-siswa.update');
-    Route::get('/user-siswa/history/{id}', [UserSiswaController::class, 'student_history'])->name('user-siswa.history');
     Route::get('/user-siswa/naik-kelas/{id}', [UserSiswaController::class, 'naik_kelas'])->name('user-siswa.naik-kelas');
-
+    
     // Manajemen Akun Wali
     Route::get('/user-wali', [UserWaliKelasController::class, 'index'])->name('user-wali.index');
     Route::get('/user-wali/create', [UserWaliKelasController::class, 'create'])->name('user-wali.create');
     Route::post('/user-wali/store', [UserWaliKelasController::class, 'store'])->name('user-wali.store');
     Route::get('/user-wali/edit/{id}', [UserWaliKelasController::class, 'edit'])->name('user-wali.edit');
     Route::put('/user-wali/update/{id}', [UserWaliKelasController::class, 'update'])->name('user-wali.update');
-
-    // Manajemen Transaksi Masuk
-    Route::get('/transaksi-masuk', [TransaksiMasukController::class, 'index'])->name('transaksi-masuk.index');
-
-    // Majement Transaksi Keluar
-    Route::get('/transaksi-keluar', [TransaksiKeluarController::class, 'index'])->name('transaksi-keluar.index');
+    
+    // Majement Transaksi
+    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/transaksi/create/{id}', [TransaksiController::class, 'create'])->name('transaksi.create');
+    Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
+    Route::get('/transaksi/history/{id}', [UserSiswaController::class, 'student_history'])->name('user-siswa.history');
 
     // SISWA ROUTES
     Route::get('transaksi-history', [UserSiswaController::class, 'history'])->name('transaksi.history');
