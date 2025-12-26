@@ -38,6 +38,11 @@
                             <p class="text-base text-gray-800 dark:text-white/90 font-semibold">
                                 Rp {{ number_format($t->jumlah, 0, ',', '.') }}
                             </p>
+                            <p>
+                                <span class="text-sm text-gray-500 dark:text-gray-400">
+                                    Keterangan: {{ $t->keterangan ?? 'Tidak ada catatan' }}
+                                </span>
+                            </p>
                         </div>
                     </div>
 
