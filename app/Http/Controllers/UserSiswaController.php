@@ -69,10 +69,17 @@ class UserSiswaController extends Controller
                 'kelas'    => $request->kelas,
             ]);
 
+            $waliKelas = User::where('role', 'wali_kelas')
+                ->where('kelas', $request->kelas)
+                ->first();
+            if (!$waliKelas) {
+                return redirect()->back()->with('error', 'Wali kelas untuk kelas ' . $request->kelas . ' tidak ditemukan.');
+            }
+
             Siswa::create([
                 'user_id' => $user->id,
                 'nama'    => $request->nama,
-                'wali_kelas_id' => $waliId,
+                'wali_kelas_id' => $waliKelas->waliKelas->id,
                 'status'  => 'aktif',
             ]);
 
