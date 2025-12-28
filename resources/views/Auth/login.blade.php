@@ -123,19 +123,15 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                 </div>
             </div>
 
-            <div class="relative hidden lg:flex w-1/2 h-screen bg-brand-950 dark:bg-white/5">
-                <div class="flex flex-col items-center justify-center w-full h-full">
+            <div class="relative hidden lg:flex w-1/2 h-screen bg-white dark:bg-gray-900">
+                <div class="flex items-center justify-center w-full h-full">
 
-                    <!-- Common Grid Shape -->
-                    <include src="./partials/common-grid-shape.html"></include>
-
-                    <a href="index.html" class="block">
-                        <img src="{{ asset('images/login_logo.png') }}" alt="Logo"
-                            class="max-w-full h-auto object-contain" />
-                    </a>
+                    <img src="{{ asset('images/login.png') }}" alt="Ilustrasi Tabungan Siswa"
+                        class="w-full h-full object-cover" />
 
                 </div>
             </div>
+
 
         </div>
     </div>

@@ -3,7 +3,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-1 gap-6">
         <!-- ========== FORM TAMBAH WALI KELAS ========== -->
         <div class="rounded-2xl border border-gray-200 p-5 lg:p-6 dark:border-gray-800 bg-white dark:bg-white/5">
-            <h4 class="text-lg font-semibold text-gray-800 mb-6 dark:text-white/90">Form Tambah Wali</h4>
+            <h4 class="text-lg font-semibold text-gray-800 mb-6 dark:text-white/90">Update Data Wali</h4>
 
             <form action="{{ route('user-wali.update', $wali->id) }}" method="POST">
                 @method('PUT')

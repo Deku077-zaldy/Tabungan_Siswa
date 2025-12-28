@@ -1,5 +1,5 @@
-<x-dashboard-layout :title="'Tarik Transaksi'">
-    <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Tarik Transaksi</h1>
+<x-dashboard-layout :title="'Transaksi'">
+    <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Transaksi</h1>
     @if (session('error'))
         <div class="rounded-xl border border-error-500 bg-error-50 p-4 dark:border-error-500/30 dark:bg-error-500/15">
             <div class="flex items-start gap-3">
@@ -47,7 +47,7 @@
 
     <div class="rounded-2xl border border-gray-200 p-5 lg:p-6 dark:border-gray-800 bg-white dark:bg-white/5">
         <h4 class="text-lg font-semibold text-gray-800 mb-6 dark:text-white/90">
-            Tarik Tabungan
+            Tabungan
         </h4>
 
         <form action="{{ route('transaksi.store') }}" method="POST" x-data="{ jenis: 'setor' }">
