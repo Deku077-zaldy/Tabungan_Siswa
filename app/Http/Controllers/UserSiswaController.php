@@ -221,27 +221,68 @@ class UserSiswaController extends Controller
     }
 
 
+    // public function downloadReport(Request $request)
+    // {
+    //     $bulan = $request->bulan; // contoh: 2025-11
+    //     [$tahun, $bulan_angka] = explode('-', $bulan);
+
+    //     $siswa = auth()->user()->siswa;
+
+    //     $transaksi = \App\Models\Transaksi::where('siswa_id', $siswa->id)
+    //         ->whereYear('tanggal', $tahun)
+    //         ->whereMonth('tanggal', $bulan_angka)
+    //         ->orderBy('tanggal')
+    //         ->get();
+
+    //     $pdf = Pdf::loadView('user.transaksi-report-pdf', [
+    //         'siswa' => $siswa,
+    //         'bulan' => $bulan,
+    //         'transaksi' => $transaksi,
+    //     ]);
+
+    //     $nama_file = 'Laporan-' . Carbon::parse($bulan . '-01')->translatedFormat('F-Y') . '.pdf';
+
+    //     return $pdf->download($nama_file);
+    // }
     public function downloadReport(Request $request)
     {
-        $bulan = $request->bulan; // contoh: 2025-11
-        [$tahun, $bulan_angka] = explode('-', $bulan);
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
 
+        $start = $request->start_date;
+        $end = $request->end_date;
         $siswa = auth()->user()->siswa;
 
+        // 1. Hitung Saldo Awal (Total setor - tarik sebelum tanggal mulai)
+        $setorSebelumnya = \App\Models\Transaksi::where('siswa_id', $siswa->id)
+            ->where('tanggal', '<', $start)
+            ->where('jenis', 'setor')
+            ->sum('jumlah');
+
+        $tarikSebelumnya = \App\Models\Transaksi::where('siswa_id', $siswa->id)
+            ->where('tanggal', '<', $start)
+            ->where('jenis', 'tarik')
+            ->sum('jumlah');
+
+        $saldoAwal = $setorSebelumnya - $tarikSebelumnya;
+
+        // 2. Ambil Transaksi dalam periode
         $transaksi = \App\Models\Transaksi::where('siswa_id', $siswa->id)
-            ->whereYear('tanggal', $tahun)
-            ->whereMonth('tanggal', $bulan_angka)
+            ->whereBetween('tanggal', [$start, $end])
             ->orderBy('tanggal')
             ->get();
 
         $pdf = Pdf::loadView('user.transaksi-report-pdf', [
             'siswa' => $siswa,
-            'bulan' => $bulan,
+            'start_date' => $start,
+            'end_date' => $end,
+            'saldoAwal' => $saldoAwal,
             'transaksi' => $transaksi,
         ]);
 
-        $nama_file = 'Laporan-' . Carbon::parse($bulan . '-01')->translatedFormat('F-Y') . '.pdf';
-
+        $nama_file = 'Laporan-Transaksi-' . $siswa->nama . '-' . $start . '-ke-' . $end . '.pdf';
         return $pdf->download($nama_file);
     }
 

@@ -7,50 +7,7 @@
 
             <!-- Logo lengkap saat sidebar terbuka -->
             <div class="flex items-center gap-3 transition-all duration-300" :class="sidebarToggle ? 'hidden' : 'flex'">
-
-                <!-- Icon celengan yang lebih modern -->
-                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    class="shrink-0 drop-shadow-lg">
-                    <defs>
-                        <linearGradient id="pigGradient" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="#3B82F6" />
-                            <stop offset="100%" stop-color="#6366F1" />
-                        </linearGradient>
-                    </defs>
-
-                    <!-- Body utama dengan efek 3D ringan -->
-                    <path
-                        d="M19 10.5C19 14.6421 15.6421 18 11.5 18H6C4.34315 18 3 16.6569 3 15V10C3 6.13401 6.13401 3 10 3C14.1421 3 17.5 6.35786 17.5 10.5V11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H17.5V10.5Z"
-                        fill="url(#pigGradient)" stroke="url(#pigGradient)" stroke-width="0.5" />
-
-                    <!-- Mata dengan highlight -->
-                    <circle cx="9" cy="11" r="1" fill="#0F172A" />
-                    <circle cx="9" cy="10.5" r="0.3" fill="#ffffff" />
-
-                    <!-- Lubang hidung -->
-                    <circle cx="14" cy="12.5" r="0.4" fill="#1E3A8A" opacity="0.8" />
-
-                    <!-- Ekor dengan sedikit lengkungan -->
-                    <path d="M6 17C6 17 7 16.5 7 18C7 19.5 6 19 6 19" stroke="#1E3A8A" stroke-width="1.2"
-                        stroke-linecap="round" fill="none" />
-
-                    <!-- Telinga -->
-                    <path d="M13.5 8C13.5 8 14.5 7 15.5 8.5" stroke="#3B82F6" stroke-width="1" stroke-linecap="round"
-                        fill="none" />
-
-                    <!-- Highlight pada badan -->
-                    <ellipse cx="12.5" cy="10" rx="1.5" ry="0.8" fill="#ffffff"
-                        opacity="0.2" />
-                </svg>
-
-                <!-- Text Logo dengan typography yang lebih baik -->
-                <span
-                    class="text-3xl font-bold tracking-tight
-                       bg-gradient-to-r from-blue-500 via-sky-500 to-indigo-600
-                       bg-clip-text text-transparent
-                       drop-shadow-sm">
-                    Tabsis
-                </span>
+                <img src="{{ asset('images/logotwh.png') }}" alt="Logo Tut Wuri Handayani" class="object-contain" />
             </div>
 
             <!-- Logo singkat saat sidebar tertutup -->
@@ -59,10 +16,10 @@
                 <!-- Monogram yang lebih stylish -->
                 <div class="relative">
                     <div
-                        class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md">
-                        <span class="text-lg font-bold text-white tracking-tighter">
-                            TS
-                        </span>
+                        class="w-10 h-10 rounded-lg flex items-center justify-center shadow-md">
+                        <img src="{{ asset('images/logotwh.png') }}" alt="Logo Tut Wuri Handayani"
+                            class="object-contain" />
+
                     </div>
                     <!-- Efek highlight kecil -->
                     <div class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-white/40"></div>
@@ -143,9 +100,8 @@
 
                             <!-- ICON (SELALU TAMPIL) -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 lucide lucide-history-icon"
-                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
+                                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
                                 <path d="M3 3v5h5" />
                                 <path d="M12 7v5l4 2" />
@@ -170,9 +126,8 @@
 
                             <!-- ICON (SELALU TAMPIL) -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 lucide lucide-notepad-text-icon"
-                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
+                                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M8 2v4" />
                                 <path d="M12 2v4" />
                                 <path d="M16 2v4" />
@@ -202,10 +157,9 @@
                             :title="sidebarToggle ? 'Dashboard' : ''">
 
                             <!-- ICON (SELALU TAMPIL) -->
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="shrink-0 lucide lucide-layout-dashboard-icon" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 lucide lucide-layout-dashboard-icon"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect width="7" height="9" x="3" y="3" rx="1" />
                                 <rect width="7" height="5" x="14" y="3" rx="1" />
                                 <rect width="7" height="9" x="14" y="12" rx="1" />
