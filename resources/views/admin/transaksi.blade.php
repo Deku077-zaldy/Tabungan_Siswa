@@ -6,8 +6,8 @@
         <div class="flex flex-col gap-5 px-6 mb-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-                    Daftar Siswa Kelas X
-                </h3>
+                    Daftar Siswa Kelas {{ $kelasWali }}
+                </h3> 
             </div>
 
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
