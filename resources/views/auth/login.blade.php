@@ -125,7 +125,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
 
             <div class="relative hidden lg:flex w-1/2 h-screen bg-white dark:bg-gray-900 p-10">
                 <div class="flex items-center justify-center w-full h-full">
-                    <img src="{{ asset('images/SD.png') }}" alt="SD 181 Welira"
+                    <img src="{{ asset('images/SDW.png') }}" alt="SD 181 Welira"
                         class="w-full h-full object-cover rounded-xl shadow-lg" />
                 </div>
             </div>
