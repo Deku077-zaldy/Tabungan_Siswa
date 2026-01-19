@@ -36,7 +36,7 @@ class TransaksiController extends Controller
 
         // dd($datasiswa);
 
-        return view('admin.transaksi', compact('datasiswa'));
+        return view('admin.transaksi', compact('datasiswa', 'kelasWali'));
     }
 
     /**
