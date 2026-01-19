@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'wa' => [
+        'api_key' => env('WA_API_KEY'),
+        'api_url' => env('WA_API_URL'),
+    ],
+
 ];

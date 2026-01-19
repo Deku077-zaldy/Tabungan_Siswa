@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Siswa;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use App\Services\WhatsAppService;
 use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
+    // Inject WhatsAppService melalui constructor
+    public function __construct(
+        protected WhatsAppService $waService
+    ) {}
     /**
      * Display a listing of the resource.
      */
@@ -60,6 +65,18 @@ class TransaksiController extends Controller
 
         // AMBIL DATA SISWA
         $siswa = Siswa::findOrFail($request->siswa_id);
+        $noSiswa = $siswa->no_hp;
+        // hilangkan spasi & karakter aneh
+        $noSiswa = preg_replace('/[^0-9+]/', '', $noSiswa);
+
+        if (str_starts_with($noSiswa, '0')) {
+            // 08xxx → 628xxx
+            $noSiswa = '62' . substr($noSiswa, 1);
+        } elseif (str_starts_with($noSiswa, '+62')) {
+            // +62xxx → 62xxx
+            $noSiswa = substr($noSiswa, 1);
+        }
+
         $totalTabungan = $siswa->total_tabungan;
 
         // VALIDASI TARIK TIDAK BOLEH > SALDO
@@ -86,6 +103,16 @@ class TransaksiController extends Controller
             ]);
 
             DB::commit();
+
+            $pesan =
+                "Infromasi Sistem%0A" .
+                "Siswa atas nama *{$siswa->nama}* telah " .
+                ($request->jenis === 'tarik' ? 'melakukan *Penarikan*' : '*Menabung*') .
+                " sejumlah *Rp " . number_format($request->jumlah, 0, ',', '.') . "*.%0A%0A" .
+                "Terima kasih.%0A" .
+                "Pesan ini dibuat otomatis dan tidak perlu dibalas.";
+
+            $this->waService->sendMessage($pesan, $noSiswa);
 
             return redirect()
                 ->route('transaksi.index')
