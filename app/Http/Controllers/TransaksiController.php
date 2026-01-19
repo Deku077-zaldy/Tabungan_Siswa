@@ -65,7 +65,7 @@ class TransaksiController extends Controller
 
         // AMBIL DATA SISWA
         $siswa = Siswa::findOrFail($request->siswa_id);
-        $noSiswa = $siswa->no_hp;
+        $noSiswa = $siswa->user->no_hp;
         // hilangkan spasi & karakter aneh
         $noSiswa = preg_replace('/[^0-9+]/', '', $noSiswa);
 
@@ -105,14 +105,15 @@ class TransaksiController extends Controller
             DB::commit();
 
             $pesan =
-                "Infromasi Sistem%0A" .
-                "Siswa atas nama *{$siswa->nama}* telah " .
-                ($request->jenis === 'tarik' ? 'melakukan *Penarikan*' : '*Menabung*') .
-                " sejumlah *Rp " . number_format($request->jumlah, 0, ',', '.') . "*.%0A%0A" .
-                "Terima kasih.%0A" .
-                "Pesan ini dibuat otomatis dan tidak perlu dibalas.";
+                "📢 *Informasi Sistem Tabsis*\n\n" .
+                "Siswa atas nama *" . strtoupper($siswa->nama) . "* telah " .
+                ($request->jenis === 'tarik' ? '*Melakukan Penarikan*' : '*Menabung*') .
+                " sejumlah *Rp " . number_format($request->jumlah, 0, ',', '.') . "*.\n\n" .
+                "Terima kasih.\n" .
+                "_Pesan ini dibuat otomatis dan tidak perlu dibalas._";
 
-            $this->waService->sendMessage($pesan, $noSiswa);
+
+            $response = $this->waService->sendMessage($pesan, $noSiswa);
 
             return redirect()
                 ->route('transaksi.index')
